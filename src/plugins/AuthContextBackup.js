@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { auth, firestore } from "./firebase";
-import { afterSignUp } from "./firebaseAdmin";
+import { afterSignUp } from "./firebase.routes";
 const AuthContext = createContext();
 
 export function useAuth() {
@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
             .collection("users")
             .doc(ref.user.uid)
             .set({
+              uid: ref.user.uid,
               userName: fullName,
               email: email,
               password: password,

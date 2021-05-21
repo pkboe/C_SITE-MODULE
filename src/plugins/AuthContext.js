@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { auth } from "./firebase";
-import { afterSignUp } from "./firebaseAdmin";
+import { afterSignUp } from "./firebase.routes";
 const AuthContext = createContext();
 
 export function useAuth() {
@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
           ref.user.updateProfile({
             displayName: fullName,
           });
-          afterSignUp(ref.user.uid, signType);
+          afterSignUp(ref.user.uid, signType, email, password, fullName);
           resolve(ref);
         })
         .catch((error) => reject(error));
