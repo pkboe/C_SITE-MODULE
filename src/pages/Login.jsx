@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 import { useAuth } from "../plugins/AuthContext";
 
 const Login = (props) => {
@@ -9,22 +10,24 @@ const Login = (props) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const rememberRef = useRef(null);
-  const choiceStudentRef = useRef(null);
-  const choiceInstituteRef = useRef(null);
+  // const choiceStudentRef = useRef(null);
+  // const choiceInstituteRef = useRef(null);
 
   const { signin } = useAuth();
   const history = useHistory();
 
   const handleSignin = (e) => {
     e.preventDefault();
+
     setError("");
     setLoading(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    signin(email, password)
+    const remember = rememberRef.current.value;
+    signin(email, password, remember)
       .then((ref) => {
         setLoading(false);
-        history.push("/Dummy");
+        history.push("/AfterLogin");
       })
       .catch((error) => {
         setError(error.message);
@@ -35,14 +38,15 @@ const Login = (props) => {
   return (
     <div>
       {/* Required meta tags */}
+      <Navbar />
       <div className="wrapper">
         <form className="form-signin shadow rounded">
           <h2 className="form-signin-heading text-center">Login</h2>
-          <div
+          {/* <div
             className="btn-group btn-group-toggle text-center"
             data-toggle="buttons"
           >
-            <label className="btn btn-primary active">
+            <label className="btn btn-primary active ">
               <input
                 type="radio"
                 name="options"
@@ -50,22 +54,25 @@ const Login = (props) => {
                 autoComplete="off"
                 defaultChecked
                 ref={choiceStudentRef}
+                // onChange={() => alert("checked")}
               />{" "}
               Student
             </label>
 
-            <label className="btn btn-primary">
+            <label className="btn btn-primary ">
               <input
                 type="radio"
                 name="options"
                 id="option2"
                 autoComplete="off"
                 ref={choiceInstituteRef}
+                // onChange={() => alert("checked")}
+                className="active"
               />{" "}
               Institute
             </label>
-          </div>
-          <br />
+          </div> */}
+          {/* <br /> */}
           <br />
           <input
             type="text"
@@ -73,7 +80,7 @@ const Login = (props) => {
             name="Email"
             placeholder="Email Address"
             required
-            autofocus
+            autoFocus
             ref={emailRef}
           />
           <br />
@@ -85,8 +92,8 @@ const Login = (props) => {
             placeholder="Password"
             required
           />
-          <label className="checkbox">
-            <div className="form-check form-switch">
+          <label className="checkbox primary">
+            <div className="form-check primary form-switch">
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -105,7 +112,7 @@ const Login = (props) => {
           <br />
           {/* <Link className="Nav__link" to="/Companydb"> */}
           <button
-            className="btn btn-sm btn-primary btn-block"
+            className="btn btn-sm btn-primary btn-block loginButton "
             disabled={loading}
             type="submit"
             onClick={handleSignin}
@@ -120,7 +127,6 @@ const Login = (props) => {
                 flexDirection: "column",
                 width: "100%",
                 color: "white",
-                marginTop: "5px",
                 borderRadius: "15px",
                 padding: "10px",
                 marginTop: "20px",

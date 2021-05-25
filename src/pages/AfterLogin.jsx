@@ -1,16 +1,23 @@
 import { useAuth } from "../plugins/AuthContext";
-import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Navbar from "../Components/Navbar";
+import CompanyDB from "./CompanyDB";
+import StudentDB from "./StudentDB";
 
-const Dummy = (props) => {
-  const { signout } = useAuth();
+const AfterLogin = (props) => {
   const values = useAuth();
-  const history = useHistory();
   const [userType, setuserType] = useState("Anoynomous");
+  const [IsAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleSignOut = () => {
-    signout();
-    history.push("/");
+  const Switcher = () => {
+    if (userType.toLowerCase() === "institute") return <CompanyDB />;
+    else if (userType.toLowerCase() === "student") return <StudentDB />;
+    else
+      return (
+        <>
+          <h1>Anoynomous</h1>
+        </>
+      );
   };
 
   useEffect(() => {
@@ -22,12 +29,14 @@ const Dummy = (props) => {
           .then((idTokenResult) => {
             console.log(idTokenResult);
             // Confirm the user is an Admin.
-            if (idTokenResult.claims.userType == "institute") {
+            if (idTokenResult.claims.userType === "institute") {
               // Show admin UI.
               setuserType("Institute");
-            } else if (idTokenResult.claims.userType == "student") {
+              setIsAuthenticated(true);
+            } else if (idTokenResult.claims.userType === "student") {
               // Show regular user UI.
               setuserType("Student");
+              setIsAuthenticated(true);
             }
           })
           .catch((error) => {
@@ -35,26 +44,21 @@ const Dummy = (props) => {
           });
     };
     checkUserType();
-  }, []);
+  }, [userType, values.currentUser]);
 
   return (
     <>
-      <h1 className="text-center bg-success">
+      <Navbar Auth={IsAuthenticated} />
+      {/* <h1 className="text-center bg-success">
         {values.currentUser &&
           "Login Successfull " + values.currentUser.displayName + "!" + " "}
       </h1>
       <h2 className="text-center bg-success">
         Your Current Role is {userType}
-      </h2>
-      <button
-        className="btn btn-sm btn-primary btn-block"
-        type="submit"
-        onClick={handleSignOut}
-      >
-        SignOut
-      </button>
+      </h2> */}
+      <Switcher />
     </>
   );
 };
 
-export default Dummy;
+export default AfterLogin;

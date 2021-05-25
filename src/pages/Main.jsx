@@ -1,8 +1,19 @@
+// import { useAuth } from "../plugins/AuthContext";
+// import { useHistory } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 import banner from "./banner.png";
 
 const Main = (props) => {
+  // const history = useHistory();
+  // const values = useAuth();
+
+  // if (values.currentUser) {
+  //   history.push("/Dummy");
+  // }
+
   return (
     <div>
+      <Navbar />
       <title>Hello, world!</title>
       <link rel="stylesheet" href="style.css" />
       <div className=" banner container">

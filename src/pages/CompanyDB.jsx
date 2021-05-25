@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 
 const CompanyDB = (props) => {
   return (
     <>
+      <Navbar />
       <div className="drives">
         <div className="row">
           <div className="col-9">

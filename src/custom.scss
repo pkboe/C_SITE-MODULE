@@ -1,0 +1,267 @@
+$theme-colors: (
+  "primary": #0d6efdff,
+  "secondary": #29408a,
+  "danger": rgb(250, 53, 53),
+  "info": #f2ff3e,
+  "warning": #f7c53bff,
+  "success": rgb(51, 221, 105),
+);
+
+// $colors: (
+//   blue-crayola: #0d6efdff,
+//   bittersweet: #ff725cff,
+//   saffron: #f7c53bff,
+//   medium-aquamarine: #63e3acff,
+//   white: #ffffffff,
+// );
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1400px,
+  xxxl: 1920px,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1500px,
+  xxxl: 1680px,
+);
+
+:root {
+  --primary: #19b5fe;
+  --secondary: #f8f9fa;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar .active {
+  color: var(--primary);
+}
+
+.nav-item .nav-link,
+.banner .btn {
+  font-weight: 600;
+}
+
+.d-flex .btn {
+  font-weight: 600;
+}
+
+.login-card {
+  text-align: center;
+  height: 60%;
+  width: 40%;
+}
+
+.banner .heading {
+  font-weight: 600;
+}
+
+.features {
+  padding: 0;
+  margin: 0;
+  background-color: var(--secondary);
+}
+
+/* Icon Pack */
+
+.gg-bolt {
+  /* This value will multiple the actual size  */
+  --ggs: 10;
+}
+/* Copied Part */
+.wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 30px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.gg-bolt {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 1));
+  width: 6px;
+  height: 21px;
+}
+
+.gg-bolt::after,
+.gg-bolt::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  transform: rotate(30deg);
+}
+
+.gg-bolt::before {
+  border-bottom: 12px solid;
+  left: 0;
+  top: 0;
+}
+
+.gg-bolt::after {
+  border-top: 12px solid;
+  right: 0;
+  bottom: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+:root {
+  --primary: #19b5fe;
+  --secondary: #f8f9fa;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar .active {
+  color: var(--primary);
+}
+
+.nav-item .nav-link,
+.banner .btn {
+  font-weight: 600;
+}
+
+.d-flex .btn {
+  font-weight: 600;
+}
+
+.login-card {
+  text-align: center;
+  height: 60%;
+  width: 40%;
+}
+
+.banner .heading {
+  font-weight: 600;
+}
+
+.features {
+  padding: 0;
+  margin: 0;
+  background-color: var(--secondary);
+}
+
+.drives {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 10vh;
+}
+
+.drives .quick-links {
+  background-color: var(--secondary);
+  border-color: white;
+}
+/* Icon Pack */
+
+.gg-bolt {
+  /* This value will multiple the actual size  */
+  --ggs: 10;
+}
+/* Copied Part */
+.wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 30px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.loginButton:disabled {
+  transition: 0.2s !important;
+  background-color: rgb(253, 38, 38) !important;
+  color: white !important;
+  border-color: rgb(250, 35, 35) !important;
+}
+
+@import "~bootstrap/scss/bootstrap";

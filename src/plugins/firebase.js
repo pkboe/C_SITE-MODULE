@@ -11,3 +11,6 @@ const firebaseConfig = {
 const myApp = firebase.initializeApp(firebaseConfig);
 export const auth = myApp.auth();
 export const firestore = myApp.firestore();
+export const LOCAL_PERSISTENCE = firebase.auth.Auth.Persistence.LOCAL;
+export const SESSION_PERSISTENCE = firebase.auth.Auth.Persistence.SESSION;
+export const NONE_PERSISTENCE = firebase.auth.Auth.Persistence.NONE;

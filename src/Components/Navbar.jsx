@@ -1,17 +1,68 @@
 import navBrand from "../pages/nav-brand.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../plugins/AuthContext";
+import { useHistory } from "react-router-dom";
+
+const NoAuthNav = () => {
+  return (
+    <>
+      <Link className="Nav__link" to="Login">
+        <button className="btn btn-outline-primary btn-sm" type="submit">
+          Login
+        </button>
+      </Link>
+      &nbsp;&nbsp;
+      <Link className="Nav__link" to="/Signup">
+        <button className="btn btn-primary btn-sm" type="submit">
+          Sign up
+        </button>
+      </Link>
+    </>
+  );
+};
+
+const AuthNav = (props) => {
+  const history = useHistory();
+  const { signout } = useAuth();
+
+  const handleSignOut = () => {
+    signout();
+    history.push("/");
+  };
+  return (
+    <>
+      {" "}
+      <button
+        className="btn btn-sm btn-primary btn-block"
+        type="submit"
+        onClick={handleSignOut}
+      >
+        SignOut
+      </button>
+    </>
+  );
+};
 
 const Navbar = (props) => {
   const values = useAuth();
   console.log(values);
+
+  // if (values.currentUser) {
+  //   history.push("/Dummy");
+  // }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand ml-2" href="#">
+          <a className="navbar-brand ml-2" href="/">
             &nbsp;&nbsp;
-            <img src={navBrand} height="30px" className="align-text-top" />
+            <img
+              src={navBrand}
+              height="30px"
+              className="align-text-top"
+              alt="banner"
+            />
           </a>
           <button
             className="navbar-toggler"
@@ -50,20 +101,7 @@ const Navbar = (props) => {
               </li> */}
             </ul>
             <form className="d-flex">
-              <Link className="Nav__link" to="Login">
-                <button
-                  className="btn btn-outline-primary btn-sm"
-                  type="submit"
-                >
-                  Login
-                </button>
-              </Link>
-              &nbsp;&nbsp;
-              <Link className="Nav__link" to="/Signup">
-                <button className="btn btn-primary btn-sm" type="submit">
-                  Sign up
-                </button>
-              </Link>
+              {props.Auth ? <AuthNav /> : <NoAuthNav />}
             </form>
           </div>
         </div>

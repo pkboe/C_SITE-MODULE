@@ -1,7 +1,6 @@
 import navBrand from "../pages/nav-brand.png";
 import { useAuth } from "../plugins/AuthContext";
 import { Link } from "react-router-dom";
-import { useAuth } from "../plugins/AuthContext";
 
 const AuthorisedNavbar = (props) => {
   const values = useAuth();

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, createContext } from "react";
-import { auth } from "./firebase";
+import { auth, LOCAL_PERSISTENCE, SESSION_PERSISTENCE } from "./firebase";
 import { afterSignUp } from "./firebase.routes";
 const AuthContext = createContext();
 
@@ -25,11 +25,14 @@ export function AuthProvider({ children }) {
     });
     return promise;
   };
-  const signin = (email, password) => {
+  const signin = (email, password, remember) => {
     let promise = new Promise(function (resolve, reject) {
       auth
         .signInWithEmailAndPassword(email, password)
         .then((ref) => {
+          auth.setPersistence(
+            remember ? LOCAL_PERSISTENCE : SESSION_PERSISTENCE
+          );
           resolve(ref);
         })
         .catch((error) => {
@@ -56,6 +59,7 @@ export function AuthProvider({ children }) {
     });
     return promise;
   };
+
   useEffect(() => {
     const unsubscribe = () =>
       auth.onAuthStateChanged((user) => {

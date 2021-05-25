@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 import { useAuth } from "../plugins/AuthContext";
 
 const SignUp = (props) => {
@@ -10,13 +10,10 @@ const SignUp = (props) => {
   const emailRef = useRef(null);
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
-  const rememberRef = useRef(null);
   const choiceStudentRef = useRef(null);
   const choiceInstituteRef = useRef(null);
 
   const { signup } = useAuth();
-
-  const history = useHistory();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -43,6 +40,7 @@ const SignUp = (props) => {
   return (
     <div>
       {/* Required meta tags */}
+      <Navbar />
 
       <div className="wrapper">
         <form
@@ -53,6 +51,7 @@ const SignUp = (props) => {
           <div
             className="btn-group btn-group-toggle text-center"
             data-toggle="buttons"
+            style={{ width: "-webkit-fill-available" }}
           >
             <label className="btn btn-primary active">
               <input
@@ -84,7 +83,7 @@ const SignUp = (props) => {
             name="username"
             placeholder="Username"
             required
-            autofocus="true"
+            autoFocus={true}
             ref={usernameRef}
           />
           <br />
@@ -94,7 +93,6 @@ const SignUp = (props) => {
             name="email"
             placeholder="Email Address"
             required
-            autofocus
             ref={emailRef}
           />
           <br />
@@ -123,7 +121,7 @@ const SignUp = (props) => {
           <br />
           <button
             disabled={loading}
-            className="btn btn-sm btn-primary btn-block"
+            className="btn btn-sm btn-primary btn-block loginButton"
             type="submit"
           >
             SignUp
@@ -135,7 +133,6 @@ const SignUp = (props) => {
                 flexDirection: "column",
                 width: "100%",
                 color: "white",
-                marginTop: "5px",
                 borderRadius: "15px",
                 padding: "10px",
                 marginTop: "20px",
@@ -152,7 +149,6 @@ const SignUp = (props) => {
                 flexDirection: "column",
                 width: "100%",
                 color: "white",
-                marginTop: "5px",
                 borderRadius: "15px",
                 padding: "10px",
                 marginTop: "20px",
