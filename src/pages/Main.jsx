@@ -14,7 +14,7 @@ const Main = (props) => {
   return (
     <div>
       <title>Hello, world!</title>
-      <link rel="stylesheet" href="style.css" />
+      {/* <link rel="stylesheet" href="style.css" /> */}
       <div className=" banner container">
         <div className="row pt-5 pl-5">
           <div className="text col pt-5">

@@ -15,7 +15,7 @@ const CompanyDB = (props) => {
                 <button className="btn btn-primary btn-sm">Add Drive</button>
               </div>
             </div>
-            <hr noshade className="m-0" />
+            <hr className="m-0" />
             <h5 className="mt-4 mb-3">Running Drives</h5>
             <div className="drive card shadow-sm rounded m-2 p-3 border-0 row">
               <div className="row">
@@ -83,21 +83,21 @@ const CompanyDB = (props) => {
           <div className="col-3">
             <div className="card quick-links rounded m-1 p-2">
               <h5 className="pt-2 text-center">Quick Links</h5>
-              <hr noshade className="m-0 p-0" />
+              <hr className="m-0 p-0" />
               <div className="m-4">
-                <a className="text-decoration-none" href>
+                <a className="text-decoration-none" href="/#">
                   Add New Drive
                 </a>
                 <br />
-                <a className="text-decoration-none" href>
+                <a className="text-decoration-none" href="/#">
                   View Previous Drives
                 </a>
                 <br />
-                <a className="text-decoration-none" href>
+                <a className="text-decoration-none" href="/#">
                   View Upcoming Drives
                 </a>
                 <br />
-                <a className="text-decoration-none" href>
+                <a className="text-decoration-none" href="/#">
                   Account Settings
                 </a>
                 <br />
