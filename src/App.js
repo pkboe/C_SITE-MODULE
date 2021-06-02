@@ -1,4 +1,4 @@
-import Main from "./pages/Main";
+// import Main from "./pages/Main";
 import { Switch, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import Footer from "./Components/Footer";
@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { AuthProvider } from "./plugins/AuthContext";
 import AfterLogin from "./pages/AfterLogin";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
@@ -14,12 +15,13 @@ function App() {
       <div className="max-content">
         <AuthProvider>
           <Router>
+            <Navbar />
             <Switch>
-              <Route exact component={Main} path="/" />
+              {/* <Route component={Main} path="/" /> */}
               <Route component={SignUp} path="/Signup" />
               <Route component={Login} path="/Login" />
               {/* <Route component={CompanyDB} path="/Companydb" /> */}
-              <Route component={AfterLogin} path="/AfterLogin" />
+              <Route exact component={AfterLogin} path="/" />
             </Switch>
             <Footer />
           </Router>

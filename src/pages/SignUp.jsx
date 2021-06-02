@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import Navbar from "../Components/Navbar";
 import { useAuth } from "../plugins/AuthContext";
+import { Redirect } from "react-router-dom";
 
 const SignUp = (props) => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const SignUp = (props) => {
   const choiceStudentRef = useRef(null);
   const choiceInstituteRef = useRef(null);
 
-  const { signup } = useAuth();
+  const { signup, userType } = useAuth();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -39,8 +39,8 @@ const SignUp = (props) => {
   };
   return (
     <div>
+      {userType && <Redirect to="/" />}
       {/* Required meta tags */}
-      <Navbar />
 
       <div className="wrapper">
         <form

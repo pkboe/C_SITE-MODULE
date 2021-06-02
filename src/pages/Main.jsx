@@ -1,19 +1,18 @@
 // import { useAuth } from "../plugins/AuthContext";
-// import { useHistory } from "react-router-dom";
-import Navbar from "../Components/Navbar";
+// import { Redirect } from "react-router-dom";
+// import Navbar from "../Components/Navbar";
 import banner from "./banner.png";
 
 const Main = (props) => {
-  // const history = useHistory();
-  // const values = useAuth();
+  // const { currentUser } = useAuth();
 
-  // if (values.currentUser) {
-  //   history.push("/Dummy");
+  // if (currentUser && currentUser.displayName) {
+  //   console.log(currentUser);
+  //   return <Redirect to={"/AfterLogin"} />;
   // }
 
   return (
     <div>
-      <Navbar />
       <title>Hello, world!</title>
       <link rel="stylesheet" href="style.css" />
       <div className=" banner container">

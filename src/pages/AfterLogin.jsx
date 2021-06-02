@@ -1,54 +1,53 @@
 import { useAuth } from "../plugins/AuthContext";
-import { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
+// import { useEffect, useState } from "react";
 import CompanyDB from "./CompanyDB";
 import StudentDB from "./StudentDB";
+import Main from "./Main";
 
 const AfterLogin = (props) => {
-  const values = useAuth();
-  const [userType, setuserType] = useState("Anoynomous");
-  const [IsAuthenticated, setIsAuthenticated] = useState(false);
-
+  const { userType } = useAuth();
+  // const [userType, setuserType] = useState("Anoynomous");
+  // const [IsClaimSet, setIsClaimSet] = useState(false);
   const Switcher = () => {
-    if (userType.toLowerCase() === "institute") return <CompanyDB />;
-    else if (userType.toLowerCase() === "student") return <StudentDB />;
+    if (userType === "institute") return <CompanyDB />;
+    else if (userType === "student") return <StudentDB />;
     else
       return (
         <>
-          <h1>Anoynomous</h1>
+          <Main />
         </>
       );
   };
 
-  useEffect(() => {
-    const checkUserType = () => {
-      console.log("called");
-      if (values.currentUser)
-        values.currentUser
-          .getIdTokenResult()
-          .then((idTokenResult) => {
-            console.log(idTokenResult);
-            // Confirm the user is an Admin.
-            if (idTokenResult.claims.userType === "institute") {
-              // Show admin UI.
-              setuserType("Institute");
-              setIsAuthenticated(true);
-            } else if (idTokenResult.claims.userType === "student") {
-              // Show regular user UI.
-              setuserType("Student");
-              setIsAuthenticated(true);
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    };
-    checkUserType();
-  }, [userType, values.currentUser]);
+  // useEffect(() => {
+  //   const checkUserType = () => {
+  //     console.log("called");
+  //     if (currentUser) console.log(currentUser);
+  //     if (currentUser)
+  //       currentUser
+  //         .getIdTokenResult()
+  //         .then((idTokenResult) => {
+  //           console.log(idTokenResult);
+  //           // Confirm the user is an Admin.
+  //           if (idTokenResult.claims.userType === "institute") {
+  //             // Show admin UI.
+  //             setuserType("institute");
+  //             setIsClaimSet(true);
+  //           } else if (idTokenResult.claims.userType === "student") {
+  //             // Show regular user UI.
+  //             setuserType("student");
+  //             setIsClaimSet(true);
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  //   };
+  //   checkUserType();
+  // }, [userType, currentUser]);
 
   return (
     <>
-      <Navbar Auth={IsAuthenticated} />
       {/* <h1 className="text-center bg-success">
         {values.currentUser &&
           "Login Successfull " + values.currentUser.displayName + "!" + " "}
