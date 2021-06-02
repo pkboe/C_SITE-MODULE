@@ -1,55 +1,61 @@
 import navBrand from "../pages/nav-brand.png";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../plugins/AuthContext";
-import { useHistory } from "react-router-dom";
-
-const NoAuthNav = () => {
-  return (
-    <>
-      <Link className="Nav__link" to="Login">
-        <button className="btn btn-outline-primary btn-sm" type="submit">
-          Login
-        </button>
-      </Link>
-      &nbsp;&nbsp;
-      <Link className="Nav__link" to="/Signup">
-        <button className="btn btn-primary btn-sm" type="submit">
-          Sign up
-        </button>
-      </Link>
-    </>
-  );
-};
-
-const AuthNav = (props) => {
-  const history = useHistory();
-  const { signout } = useAuth();
-
-  const handleSignOut = () => {
-    signout();
-    history.push("/");
-  };
-  return (
-    <>
-      {" "}
-      <button
-        className="btn btn-sm btn-primary btn-block"
-        type="submit"
-        onClick={handleSignOut}
-      >
-        SignOut
-      </button>
-    </>
-  );
-};
+// import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
-  const values = useAuth();
-  console.log(values);
+  const { currentUser, userType } = useAuth();
+  // console.log(values);
 
   // if (values.currentUser) {
   //   history.push("/Dummy");
   // }
+
+  const AuthNav = (props) => {
+    // const history = useHistory();
+    const { signout } = useAuth();
+
+    const handleSignOut = () => {
+      signout();
+      return <Redirect to="/" />;
+    };
+    return (
+      <>
+        <h6
+          className="d-flex align-items-center text-primary fw-bold  m-0 p-1"
+          style={{ marginRight: "12em" }}
+        >
+          {currentUser && currentUser.displayName}
+        </h6>
+        {"    "}
+        <button
+          className="btn btn-sm btn-primary btn-block"
+          type="submit"
+          onClick={handleSignOut}
+        >
+          SignOut
+        </button>
+      </>
+    );
+  };
+
+  const NoAuthNav = () => {
+    return (
+      <>
+        <Link className="Nav__link" to="Login">
+          <button className="btn btn-outline-primary btn-sm" type="submit">
+            Login
+          </button>
+        </Link>
+        &nbsp;&nbsp;
+        <Link className="Nav__link" to="/Signup">
+          <button className="btn btn-primary btn-sm" type="submit">
+            Sign up
+          </button>
+        </Link>
+      </>
+    );
+  };
 
   return (
     <div>
@@ -77,11 +83,14 @@ const Navbar = (props) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" to="/">
-                  Home
-                </Link>
-              </li>
+              {!props.Auth && (
+                <li className="nav-item">
+                  <Link className="nav-link active" to="/">
+                    Home
+                  </Link>
+                </li>
+              )}
+
               {/* <li class="nav-item ">
                 <a class="nav-link" href="#">Link</a>
               </li> */}
@@ -101,7 +110,7 @@ const Navbar = (props) => {
               </li> */}
             </ul>
             <form className="d-flex">
-              {props.Auth ? <AuthNav /> : <NoAuthNav />}
+              {userType ? <AuthNav /> : <NoAuthNav />}
             </form>
           </div>
         </div>
