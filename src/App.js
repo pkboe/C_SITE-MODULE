@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import { AuthProvider } from "./plugins/AuthContext";
 import AfterLogin from "./pages/AfterLogin";
 import Navbar from "./Components/Navbar";
+import AddDrive from "./Components/AddDrive";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route component={Login} path="/Login" />
               {/* <Route component={CompanyDB} path="/Companydb" /> */}
               <Route exact component={AfterLogin} path="/" />
+              <Route exact component={AddDrive} path="/AddDrive" />
             </Switch>
             <Footer />
           </Router>
