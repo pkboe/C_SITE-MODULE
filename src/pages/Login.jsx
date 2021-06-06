@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useAuth } from "../plugins/AuthContext";
 
 const Login = (props) => {
@@ -11,7 +11,6 @@ const Login = (props) => {
   // const choiceStudentRef = useRef(null);
   // const choiceInstituteRef = useRef(null);
   const { signin, userType } = useAuth();
-  const history = useHistory();
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -24,7 +23,6 @@ const Login = (props) => {
     signin(email, password, remember)
       .then((ref) => {
         setLoading(false);
-        history.push("/");
       })
       .catch((error) => {
         setError(error.message);
@@ -110,14 +108,17 @@ const Login = (props) => {
             </label>
             <br />
             {/* <Link className="Nav__link" to="/Companydb"> */}
-            <button
-              className="btn btn-sm btn-primary btn-block loginButton "
-              disabled={loading}
-              type="submit"
-              onClick={handleSignin}
-            >
-              Login
-            </button>
+            <div className="text-center">
+              <button
+                className="btn btn-sm btn-primary btn-block loginButton "
+                disabled={loading}
+                type="submit"
+                onClick={handleSignin}
+              >
+                Login
+              </button>
+            </div>
+
             {/* </Link> */}
             {error && (
               <div
