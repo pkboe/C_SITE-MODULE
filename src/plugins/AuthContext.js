@@ -36,6 +36,7 @@ export function AuthProvider({ children }) {
       auth
         .signInWithEmailAndPassword(email, password)
         .then((ref) => {
+          !userType && setLoading(true);
           auth.setPersistence(
             remember ? LOCAL_PERSISTENCE : SESSION_PERSISTENCE
           );
@@ -107,7 +108,7 @@ export function AuthProvider({ children }) {
         checkUserType(user);
       });
     return unsubscribe();
-  }, []);
+  }, [loading]);
 
   const value = {
     userType,
