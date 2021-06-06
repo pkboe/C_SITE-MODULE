@@ -48,6 +48,40 @@ const SignUp = (props) => {
           onSubmit={(e) => handleSignup(e)}
         >
           <h2 className="form-signin-heading text-center">Sign up</h2>
+          {error && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                color: "white",
+                borderRadius: "15px",
+                padding: "10px",
+                marginTop: "20px",
+              }}
+              className="bg-danger alert msg"
+            >
+              {error}
+            </div>
+          )}
+          {success && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                color: "white",
+                borderRadius: "15px",
+                padding: "10px",
+                marginTop: "20px",
+                textAlign: "center",
+              }}
+              className="bg-success  alert msg "
+            >
+              {success}
+            </div>
+          )}
+
           <div
             className="btn-group btn-group-toggle text-center"
             data-toggle="buttons"
@@ -81,7 +115,7 @@ const SignUp = (props) => {
             type="text"
             className="form-control"
             name="username"
-            placeholder="Username"
+            placeholder="Full Name"
             required
             autoFocus={true}
             ref={usernameRef}
@@ -119,46 +153,15 @@ const SignUp = (props) => {
             </label>
           </div>
           <br />
-          <button
-            disabled={loading}
-            className="btn btn-sm btn-primary btn-block loginButton"
-            type="submit"
-          >
-            SignUp
-          </button>
-          {error && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                color: "white",
-                borderRadius: "15px",
-                padding: "10px",
-                marginTop: "20px",
-              }}
-              className="bg-danger"
+          <div className="text-center">
+            <button
+              disabled={loading}
+              className="btn btn-sm btn-primary btn-block loginButton"
+              type="submit"
             >
-              {error}
-            </div>
-          )}
-          {success && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                color: "white",
-                borderRadius: "15px",
-                padding: "10px",
-                marginTop: "20px",
-                textAlign: "center",
-              }}
-              className="bg-success pulse  "
-            >
-              {success}
-            </div>
-          )}
+              Sign Up
+            </button>
+          </div>
         </form>
       </div>
     </div>
