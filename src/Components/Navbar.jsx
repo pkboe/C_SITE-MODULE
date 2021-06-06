@@ -1,3 +1,5 @@
+import user from "./user.png";
+
 import navBrand from "../pages/nav-brand.png";
 import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../plugins/AuthContext";
@@ -11,6 +13,27 @@ const Navbar = (props) => {
   //   history.push("/Dummy");
   // }
 
+  const Avatar = () => {
+    return (
+      <>
+        <h6
+          className="d-flex align-items-center text-primary fw-bold  m-0 p-1"
+          style={{ marginRight: "12em" }}
+        >
+          <img
+            src={user}
+            height="30px"
+            alt="userIcon"
+            style={{
+              marginRight: 10,
+            }}
+          />
+          {currentUser && currentUser.displayName}
+        </h6>
+      </>
+    );
+  };
+
   const AuthNav = (props) => {
     // const history = useHistory();
     const { signout } = useAuth();
@@ -21,19 +44,15 @@ const Navbar = (props) => {
     };
     return (
       <>
-        <h6
-          className="d-flex align-items-center text-primary fw-bold  m-0 p-1"
-          style={{ marginRight: "12em" }}
-        >
-          {currentUser && currentUser.displayName}
-        </h6>
+        <Avatar />
         {"    "}
         <button
           className="btn btn-sm btn-primary btn-block"
           type="submit"
           onClick={handleSignOut}
+          style={{ marginLeft: 10 }}
         >
-          SignOut
+          Sign out
         </button>
       </>
     );
