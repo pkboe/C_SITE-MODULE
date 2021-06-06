@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 // import Navbar from "../Components/Navbar";
 
 const CompanyDB = (props) => {
+  const history = useHistory();
   return (
     <>
       <div className="drives">
@@ -12,7 +15,14 @@ const CompanyDB = (props) => {
                 <h3>Scheduled Drives</h3>
               </div>
               <div className="col-2 text-right">
-                <button className="btn btn-primary btn-sm">Add Drive</button>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => {
+                    history.push("/AddDrive");
+                  }}
+                >
+                  Add Drive
+                </button>
               </div>
             </div>
             <hr className="m-0" />
@@ -116,7 +126,6 @@ const CompanyDB = (props) => {
     
     
     */}
-      );
     </>
   );
 };
