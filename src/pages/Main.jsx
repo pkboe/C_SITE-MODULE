@@ -1,15 +1,18 @@
-// import { useAuth } from "../plugins/AuthContext";
+import { Redirect } from "react-router";
+import { useAuth } from "../plugins/AuthContext";
+
 // import { Redirect } from "react-router-dom";
 // import Navbar from "../Components/Navbar";
 import banner from "./banner.png";
 
 const Main = (props) => {
   // const { currentUser } = useAuth();
+  const { userType, currentUser } = useAuth();
 
-  // if (currentUser && currentUser.displayName) {
-  //   console.log(currentUser);
-  //   return <Redirect to={"/AfterLogin"} />;
-  // }
+  if (userType) {
+    console.log(currentUser);
+    return <Redirect to={"/AfterLogin"} />;
+  }
 
   return (
     <div>

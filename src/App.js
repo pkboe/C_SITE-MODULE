@@ -9,6 +9,7 @@ import { AuthProvider } from "./plugins/AuthContext";
 import AfterLogin from "./pages/AfterLogin";
 import Navbar from "./Components/Navbar";
 import AddDrive from "./Components/AddDrive";
+import Main from "./pages/Main";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
               <Route component={SignUp} path="/Signup" />
               <Route component={Login} path="/Login" />
               {/* <Route component={CompanyDB} path="/Companydb" /> */}
-              <Route exact component={AfterLogin} path="/" />
+              <Route exact component={Main} path="/" />
+              <Route exact component={AfterLogin} path="/AfterLogin" />
               <Route exact component={AddDrive} path="/AddDrive" />
             </Switch>
             <Footer />

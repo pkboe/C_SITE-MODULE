@@ -285,4 +285,9 @@ $grid-breakpoints: (
   gap: 1px !important;
 }
 
+.my-handle {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+
 @import "~bootstrap/scss/bootstrap";

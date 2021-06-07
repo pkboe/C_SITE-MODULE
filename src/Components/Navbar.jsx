@@ -17,7 +17,7 @@ const Navbar = (props) => {
     return (
       <>
         <h6
-          className="d-flex align-items-center text-primary fw-bold  m-0 p-1"
+          className="d-flex align-items-center  m-0 p-1"
           style={{ marginRight: "12em" }}
         >
           <img

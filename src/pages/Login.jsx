@@ -32,7 +32,7 @@ const Login = (props) => {
 
   return (
     <>
-      {userType && <Redirect to="/" />}
+      {userType && <Redirect to="/AfterLogin" />}
       <div>
         {/* Required meta tags */}
         <div className="wrapper">

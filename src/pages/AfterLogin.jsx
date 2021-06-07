@@ -2,7 +2,7 @@ import { useAuth } from "../plugins/AuthContext";
 // import { useEffect, useState } from "react";
 import CompanyDB from "./CompanyDB";
 import StudentDB from "./StudentDB";
-import Main from "./Main";
+import { Redirect } from "react-router";
 
 const AfterLogin = (props) => {
   const { userType } = useAuth();
@@ -14,7 +14,7 @@ const AfterLogin = (props) => {
     else
       return (
         <>
-          <Main />
+          <Redirect to="/" />
         </>
       );
   };
