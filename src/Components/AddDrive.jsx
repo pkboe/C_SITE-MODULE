@@ -1,25 +1,34 @@
 import { faClock, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 import { ReactSortable } from "react-sortablejs";
+
+import swal from "sweetalert";
 import { useAuth } from "../plugins/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router";
+import { storeCreatedDrive } from "../plugins/firestore";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-const AddDrive = (propd) => {
+const AddDrive = (props) => {
   const [SelectedModules, setSelectedModules] = useState([]);
   const [DurationCount, setDurationCount] = useState(0);
   const [FileUploadError, setFileUploadError] = useState("");
   const [FileUploadSuccess, setFileUploadSuccess] = useState("");
+  // const [CreateDriveStatus, setCreateDriveStatus] = useState();
+  // const [CreateDriveStatusError, setCreateDriveStatusError] = useState(false);
+  const [Preset, setPreset] = useState({});
   const [Data, setData] = useState();
-
+  const history = useHistory();
   const fileInputRef = useRef();
+  const allowStudentsByRef = useRef();
   const currentModuleRef = useRef();
-
-  const { userType } = useAuth();
-
+  const startDateRef = useRef();
+  const endDateRef = useRef();
+  const startTimeRef = useRef();
+  const endTimeRef = useRef();
+  const { userType, currentUser } = useAuth();
   const AllModules = [
     {
       id: 1,
@@ -35,7 +44,7 @@ const AddDrive = (propd) => {
     },
     {
       id: 3,
-      type: "mcq",
+      type: "coding",
       duration: 15,
       tech: "java",
     },
@@ -45,26 +54,63 @@ const AddDrive = (propd) => {
       duration: 45,
       tech: "C",
     },
+    {
+      id: 5,
+      type: "coding",
+      duration: 30,
+      tech: "c++",
+    },
+    {
+      id: 6,
+      type: "mcq",
+      duration: 15,
+      tech: "java",
+    },
+    {
+      id: 7,
+      type: "mcq",
+      duration: 45,
+      tech: "C",
+    },
+    {
+      id: 8,
+      type: "mcq",
+      duration: 30,
+      tech: "c++",
+    },
   ];
 
   let Modules = AllModules;
-
+  const handleClickOnPreset = () => {};
   const handleFileUpload = async () => {
     setFileUploadError();
     setFileUploadSuccess();
     const data = new FormData();
+
+    let y = [];
+    let z = "";
+    SelectedModules.map((item) => {
+      console.log(item);
+      y = item.value.split("-");
+      y.map((item) => (z += item.charAt(0)));
+    });
+    z = currentUser.displayName + "_" + z;
+
     data.append("file", fileInputRef.current.files[0]);
     console.log(fileInputRef.current.files[0]);
+
     await axios
       .post("http://127.0.0.1:5000/api/get-excel-data", data)
       .then((res) => {
         setData(res.data);
         setFileUploadSuccess("File Uploaded Successfully!");
-
         console.log({ ...res });
+        axios.get(`http://127.0.0.1:5000/api/setfilename?drivename=${z}`);
       })
       .catch((err) => {
-        setFileUploadError("Error! : " + err.response.data.message);
+        err.response
+          ? setFileUploadError("Error! : " + err.response.data.message)
+          : setFileUploadError("Backend Offline");
         console.log({ ...err });
       });
   };
@@ -102,10 +148,31 @@ const AddDrive = (propd) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
+  useEffect(
+    (Modules) => {
+      console.log(Modules);
+      console.log(SelectedModules);
+    },
+    [SelectedModules]
+  );
+
   useEffect(() => {
-    console.log(Modules);
-    console.log(SelectedModules);
-  }, [SelectedModules]);
+    // console.log(currentUser.uid);
+    if (
+      !(
+        endDateRef.current.value &&
+        startDateRef.current.value &&
+        startTimeRef.current.value &&
+        endTimeRef.current.value
+      )
+    )
+      console.log(
+        (endDateRef.current.value = new Date().toISOString().slice(0, 10)),
+        (startDateRef.current.value = new Date().toISOString().slice(0, 10)),
+        (startTimeRef.current.value = "09:00"),
+        (endTimeRef.current.value = "11:30")
+      );
+  }, []);
 
   useEffect(() => {
     let x = 0;
@@ -127,6 +194,46 @@ const AddDrive = (propd) => {
       setDurationCount(x + " Mins");
     }
   }, [SelectedModules]);
+
+  // useEffect(() => {
+  //   if (CreateDriveStatus && !CreateDriveStatusError)
+  //     Swal.fire(
+  //       {
+  //         title: "Drive Creation Succefull!",
+  //         text: "Go to Home",
+  //         icon: "success",
+  //         confirmButtonText: "Go to Dashboard",
+  //       },
+  //       function () {
+  //         window.location = "http://localhost:3000/";
+  //       }
+  //     );
+
+  //   // history.push({
+  //   //   pathname: "/AfterLogin",
+  //   //   state: { status: CreateDriveStatus },
+  //   // });
+  // }, [CreateDriveStatus]);
+
+  const showAlert = (flag) => {
+    let msg = flag
+      ? "Drive created successfully"
+      : "Something is not right.Please try again!";
+    let icon = flag ? "success" : "error";
+    let btnClass = flag ? "primary" : "danger";
+    let buttonMsg = flag ? "Go to Dashboard" : "Okay :(";
+    swal({
+      title: msg,
+      icon: icon,
+      button: {
+        text: buttonMsg,
+        value: flag,
+        visible: true,
+        className: `btn btn-${btnClass}`,
+        closeModal: true,
+      },
+    }).then((value) => value && history.push("/"));
+  };
 
   return (
     <>
@@ -152,7 +259,11 @@ const AddDrive = (propd) => {
                   For quick creation, use one of the following presets:
                 </p>
 
-                <div className="col-3 p-3 mt-1 m-2 card shadow-sm">
+                <div
+                  className="col-3 p-3 mt-1 m-2 card shadow-sm unselectable "
+                  onClick={handleClickOnPreset}
+                  style={{ cursor: "pointer" }}
+                >
                   <h6>Python, Data Structures and Coding</h6>
                   <p>
                     <small>
@@ -163,7 +274,10 @@ const AddDrive = (propd) => {
                   </p>
                 </div>
 
-                <div className="col-3 p-3 mt-1 m-2 card shadow-sm">
+                <div
+                  className="col-3 p-3 mt-1 m-2 card shadow-sm unselectable "
+                  style={{ cursor: "pointer" }}
+                >
                   <h6>Java, C and C++ MCQs and Coding</h6>
                   <p>
                     <small>
@@ -173,7 +287,10 @@ const AddDrive = (propd) => {
                   </p>
                 </div>
 
-                <div className="col-3 p-3 mt-1 m-2 card shadow-sm">
+                <div
+                  className="col-3 p-3 mt-1 m-2 card shadow-sm unselectable "
+                  style={{ cursor: "pointer" }}
+                >
                   <h6>Web Technologies and Web Frameworks</h6>
                   <p>
                     <small>
@@ -183,12 +300,13 @@ const AddDrive = (propd) => {
                   </p>
                 </div>
               </div>
-              <form>
+              <form onSubmit={(e) => e.preventDefault()}>
                 <div className="row pt-3">
                   <div className="col">
                     {" "}
                     <label className="form-label ">Test Start Date :</label>
                     <input
+                      ref={startDateRef}
                       type="date"
                       className="form-control"
                       id="validationCustom01"
@@ -196,6 +314,7 @@ const AddDrive = (propd) => {
                     />
                     <label className="form-label pt-3">Test Start Time :</label>
                     <input
+                      ref={startTimeRef}
                       type="time"
                       className="form-control"
                       id="validationCustom01"
@@ -336,14 +455,17 @@ const AddDrive = (propd) => {
                   <div className="col">
                     <label className="form-label">Test End Date :</label>
                     <input
+                      ref={endDateRef}
                       type="date"
                       className="form-control"
                       id="validationCustom01"
+                      defaultValue=""
                       required
                     />
 
                     <label className="form-label pt-3">Test End Time :</label>
                     <input
+                      ref={endTimeRef}
                       type="time"
                       className="form-control"
                       id="validationCustom01"
@@ -358,7 +480,7 @@ const AddDrive = (propd) => {
                           type="file"
                           className="form-control"
                           id="validationCustom01"
-                          required
+                          required={true}
                           ref={fileInputRef}
                         />
                         &nbsp;&nbsp;
@@ -387,7 +509,13 @@ const AddDrive = (propd) => {
                     <label className="form-label pt-3">
                       Allow Students By :
                     </label>
-                    <select name="" id="" className="form-select">
+                    <select
+                      name=""
+                      id=""
+                      className="form-select"
+                      ref={allowStudentsByRef}
+                      required
+                    >
                       {Data &&
                         Data.rows &&
                         Data.rows.map((item, index) => (
@@ -402,7 +530,23 @@ const AddDrive = (propd) => {
                 </div>
                 <div className="text-center mt-5 ">
                   {" "}
-                  <button className="btn  btn-lg btn-primary text-center ">
+                  <button
+                    className="btn  btn-lg btn-primary text-center "
+                    onClick={() => {
+                      storeCreatedDrive(currentUser, {
+                        startDate: startDateRef.current.value,
+                        endDate: endDateRef.current.value,
+                        startTime: startTimeRef.current.value,
+                        endTime: endTimeRef.current.value,
+                        modules: SelectedModules,
+                        allowBy: allowStudentsByRef.current.value,
+                        file: fileInputRef.current.files[0],
+                        testDuration: DurationCount,
+                      })
+                        .then((flag) => showAlert(flag))
+                        .catch((err) => console.error(err));
+                    }}
+                  >
                     Create Drive
                   </button>
                 </div>

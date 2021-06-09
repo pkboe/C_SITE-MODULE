@@ -3,6 +3,7 @@ import { useAuth } from "../plugins/AuthContext";
 import CompanyDB from "./CompanyDB";
 import StudentDB from "./StudentDB";
 import { Redirect } from "react-router";
+import { FireStoreContextProvider } from "../plugins/FireStoreContext";
 
 const AfterLogin = (props) => {
   const { userType } = useAuth();
@@ -45,7 +46,6 @@ const AfterLogin = (props) => {
   //   };
   //   checkUserType();
   // }, [userType, currentUser]);
-
   return (
     <>
       {/* <h1 className="text-center bg-success">
