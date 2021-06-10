@@ -10,11 +10,10 @@ const Login = (props) => {
   const rememberRef = useRef(null);
   // const choiceStudentRef = useRef(null);
   // const choiceInstituteRef = useRef(null);
-  const { signin, userType } = useAuth();
+  const { signin, userType, currentUser } = useAuth();
 
   const handleSignin = (e) => {
     e.preventDefault();
-
     setError("");
     setLoading(true);
     const email = emailRef.current.value;
@@ -22,11 +21,11 @@ const Login = (props) => {
     const remember = rememberRef.current.checked;
     signin(email, password, remember)
       .then((ref) => {
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -111,7 +110,7 @@ const Login = (props) => {
             <div className="text-center">
               <button
                 className="btn btn-sm btn-primary btn-block loginButton "
-                disabled={loading}
+                // disabled={currentUser}
                 type="submit"
                 onClick={handleSignin}
               >

@@ -18,7 +18,7 @@ const AddDrive = (props) => {
   const [FileUploadSuccess, setFileUploadSuccess] = useState("");
   // const [CreateDriveStatus, setCreateDriveStatus] = useState();
   // const [CreateDriveStatusError, setCreateDriveStatusError] = useState(false);
-  const [Preset, setPreset] = useState({});
+  // const [Preset, setPreset] = useState({});
   const [Data, setData] = useState();
   const history = useHistory();
   const fileInputRef = useRef();
@@ -93,6 +93,7 @@ const AddDrive = (props) => {
       console.log(item);
       y = item.value.split("-");
       y.map((item) => (z += item.charAt(0)));
+      return true;
     });
     z = currentUser.displayName + "_" + z;
 
@@ -300,7 +301,23 @@ const AddDrive = (props) => {
                   </p>
                 </div>
               </div>
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  storeCreatedDrive(currentUser, {
+                    startDate: startDateRef.current.value,
+                    endDate: endDateRef.current.value,
+                    startTime: startTimeRef.current.value,
+                    endTime: endTimeRef.current.value,
+                    modules: SelectedModules,
+                    allowBy: allowStudentsByRef.current.value,
+                    file: fileInputRef.current.files[0],
+                    testDuration: DurationCount,
+                  })
+                    .then((flag) => showAlert(flag))
+                    .catch((err) => console.error(err));
+                }}
+              >
                 <div className="row pt-3">
                   <div className="col">
                     {" "}
@@ -337,11 +354,11 @@ const AddDrive = (props) => {
                             CapitalizeFirstWord(module.type) +
                             "-" +
                             module.duration.toString();
-                          console.log(
-                            SelectedModules.some(
-                              (element) => element.value !== value
-                            )
-                          );
+                          // console.log(
+                          //   SelectedModules.some(
+                          //     (element) => element.value !== value
+                          //   )
+                          // );
                           return (
                             <option
                               key={module.id}
@@ -530,23 +547,7 @@ const AddDrive = (props) => {
                 </div>
                 <div className="text-center mt-5 ">
                   {" "}
-                  <button
-                    className="btn  btn-lg btn-primary text-center "
-                    onClick={() => {
-                      storeCreatedDrive(currentUser, {
-                        startDate: startDateRef.current.value,
-                        endDate: endDateRef.current.value,
-                        startTime: startTimeRef.current.value,
-                        endTime: endTimeRef.current.value,
-                        modules: SelectedModules,
-                        allowBy: allowStudentsByRef.current.value,
-                        file: fileInputRef.current.files[0],
-                        testDuration: DurationCount,
-                      })
-                        .then((flag) => showAlert(flag))
-                        .catch((err) => console.error(err));
-                    }}
-                  >
+                  <button className="btn  btn-lg btn-primary text-center ">
                     Create Drive
                   </button>
                 </div>

@@ -3,7 +3,6 @@ import { useAuth } from "../plugins/AuthContext";
 import CompanyDB from "./CompanyDB";
 import StudentDB from "./StudentDB";
 import { Redirect } from "react-router";
-import { FireStoreContextProvider } from "../plugins/FireStoreContext";
 
 const AfterLogin = (props) => {
   const { userType } = useAuth();

@@ -6,12 +6,14 @@ const SignUp = (props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPRNInput, setShowPRNInput] = useState(false);
 
   const emailRef = useRef(null);
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const choiceStudentRef = useRef(null);
   const choiceInstituteRef = useRef(null);
+  const PRNRef = useRef(null);
 
   const { signup, userType } = useAuth();
 
@@ -23,7 +25,10 @@ const SignUp = (props) => {
     const password = passwordRef.current.value;
     const username = usernameRef.current.value;
     const role = choiceStudentRef.current.checked ? "student" : "institute";
-    signup(email, password, username, role)
+    const studentPRN =
+      PRNRef.current && PRNRef.current ? PRNRef.current.value : "";
+    console.log(studentPRN);
+    signup(email, password, username, role, studentPRN)
       .then((ref) => {
         setLoading(false);
         // alert("Kindly Login ");
@@ -93,8 +98,8 @@ const SignUp = (props) => {
                 name="options"
                 id="option1"
                 autoComplete="off"
-                defaultChecked
                 ref={choiceStudentRef}
+                onChange={() => setShowPRNInput(true)}
               />{" "}
               Student
             </label>
@@ -104,9 +109,11 @@ const SignUp = (props) => {
                 name="options"
                 id="option2"
                 autoComplete="off"
+                defaultChecked
                 ref={choiceInstituteRef}
+                onChange={(x) => setShowPRNInput(false)}
               />{" "}
-              Institute
+              Organization
             </label>
           </div>
           <br />
@@ -130,6 +137,20 @@ const SignUp = (props) => {
             ref={emailRef}
           />
           <br />
+          {showPRNInput && (
+            <>
+              <input
+                type="text"
+                className="form-control"
+                name="PRN"
+                placeholder="PRN"
+                required
+                ref={PRNRef}
+              />
+              <br />
+            </>
+          )}
+
           <input
             type="password"
             className="form-control"

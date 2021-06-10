@@ -2,7 +2,7 @@ import { faClock, faClipboard } from "@fortawesome/free-regular-svg-icons";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const DriveCardScheduled = ({ drive }) => {
+const TestCardRunning = ({ drive }) => {
   function formatDDMMM(s) {
     var months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
     var b = s.split(/\D/);
@@ -66,10 +66,10 @@ const DriveCardScheduled = ({ drive }) => {
             </p>
             <br />
             <button
-              className="btn btn-warning btn-sm"
+              className="btn btn-success btn-sm"
               style={{ minWidth: 110 }}
             >
-              Scheduled
+              Live
             </button>
           </div>
         </div>
@@ -78,4 +78,4 @@ const DriveCardScheduled = ({ drive }) => {
   );
 };
 
-export default DriveCardScheduled;
+export default TestCardRunning;

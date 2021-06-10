@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { auth, LOCAL_PERSISTENCE, SESSION_PERSISTENCE } from "./firebase";
 import { afterSignUp } from "./firebase.routes";
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -11,8 +11,9 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState();
+  const [studentPRN, setstudentPRN] = useState("");
 
-  const signup = async (email, password, fullName, signType) => {
+  const signup = async (email, password, fullName, signType, studentPRN) => {
     let promise = new Promise(function (resolve, reject) {
       auth
         .createUserWithEmailAndPassword(email, password)
@@ -20,12 +21,17 @@ export function AuthProvider({ children }) {
           ref.user.updateProfile({
             displayName: fullName,
           });
-          afterSignUp(ref.user.uid, signType, email, password, fullName).then(
-            (data) => {
-              console.log(data);
-              resolve(ref);
-            }
-          );
+          afterSignUp(
+            ref.user.uid,
+            signType,
+            email,
+            password,
+            fullName,
+            studentPRN
+          ).then((data) => {
+            console.log(data);
+            resolve(ref);
+          });
         })
         .catch((error) => reject(error));
     });
@@ -72,15 +78,16 @@ export function AuthProvider({ children }) {
       await user
         .getIdTokenResult()
         .then((idTokenResult) => {
-          console.log(idTokenResult);
+          // console.log(idTokenResult);
           // Confirm the user is an Admin.
           if (idTokenResult.claims.userType === "institute") {
-            console.log("institute");
+            // console.log("institute");
             setUserType("institute");
             setCurrentUser(user);
             setLoading(false);
             // Show admin UI.
           } else if (idTokenResult.claims.userType === "student") {
+            setstudentPRN(idTokenResult.claims.studentPRN);
             setUserType("student");
             setCurrentUser(user);
             setLoading(false);
@@ -101,10 +108,10 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    console.log("Use Effect");
+    // console.log("Use Effect");
     const unsubscribe = async () =>
       auth.onAuthStateChanged(async (user) => {
-        console.log("onAuthStateChanged");
+        // console.log("onAuthStateChanged");
         checkUserType(user);
       });
     return unsubscribe();
@@ -112,6 +119,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     userType,
+    studentPRN,
     currentUser,
     signup,
     signin,

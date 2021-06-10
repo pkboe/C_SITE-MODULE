@@ -3,49 +3,6 @@ import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DriveCardRunning = ({ drive }) => {
-  var today = new Date();
-
-  //var time = today.getHours() + ":" + today.getMinutes();
-  let startDate = String(drive.startDate);
-  let startTime = drive.startTime;
-
-  let endDate = drive.endDate;
-  let endTime = drive.endTime;
-  let todayDate;
-  let startYear = startDate.split("-");
-  let startMonth = startDate.split("-")[1];
-  let startDay = startDate.split("-")[2];
-  let startHour = startTime.split(":")[0];
-  let startMin = startTime.split(":")[1];
-  let endYear = endDate.split("-")[0];
-  let endMonth = endDate.split("-")[1];
-  let endDay = endDate.split("-")[2];
-  let endHour = endTime.split(":")[0];
-  let endMin = endTime.split(":")[1];
-
-  let todayYear = String(
-    (todayDate = new Date().toISOString().slice(0, 10))
-  ).split("-")[0];
-  let todayMonth = String(
-    (todayDate = new Date().toISOString().slice(0, 10))
-  ).split("-")[1];
-  let todayDay = String(
-    (todayDate = new Date().toISOString().slice(0, 10))
-  ).split("-")[2];
-
-  // console.log(
-  //   parseInt(startYear) <= parseInt(todayYear) &&
-  //     parseInt(startMonth) <= parseInt(todayMonth) &&
-  //     parseInt(startDay) <= parseInt(todayDay)
-  // );
-
-  let hasStarted =
-    parseInt(startYear) <= parseInt(todayYear) &&
-    parseInt(startMonth) <= parseInt(todayMonth) &&
-    parseInt(startDay) <= parseInt(todayDay);
-
-  console.log(drive);
-
   function formatDDMMM(s) {
     var months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
     var b = s.split(/\D/);
@@ -83,8 +40,7 @@ const DriveCardRunning = ({ drive }) => {
               {drive.modules.map((module) => {
                 let x = module.value;
                 x = x.split("-");
-                console.log(x);
-                return x[0] + " " + x[1] + " " + drive.testDuration + " | ";
+                return x[0] + " " + x[1] + " " + x[2] + " Mins | ";
               })}
             </p>
             <p className="mb-2">
@@ -106,7 +62,7 @@ const DriveCardRunning = ({ drive }) => {
           </div>
           <div className="col-2 text-center  d-flex flex-column justify-content-around">
             <p>
-              <FontAwesomeIcon icon={faClock} /> 1 Hr 15 Min
+              <FontAwesomeIcon icon={faClock} /> {drive.testDuration}
             </p>
             <br />
             <button

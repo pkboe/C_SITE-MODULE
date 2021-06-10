@@ -10,8 +10,8 @@ import AfterLogin from "./pages/AfterLogin";
 import Navbar from "./Components/Navbar";
 import AddDrive from "./Components/AddDrive";
 import Main from "./pages/Main";
-import CompanyDB from "./pages/CompanyDB";
-import StudentDB from "./pages/StudentDB";
+// import CompanyDB from "./pages/CompanyDB";
+// import StudentDB from "./pages/StudentDB";
 import { FireStoreContextProvider } from "./plugins/FireStoreContext";
 
 function App() {
@@ -19,22 +19,22 @@ function App() {
     <div className="container-xxxl">
       <div className="max-content">
         <AuthProvider>
-          <FireStoreContextProvider>
-            <Router>
-              <Navbar />
-              <Switch>
-                {/* <Route component={Main} path="/" /> */}
-                <Route component={SignUp} path="/Signup" />
-                <Route component={Login} path="/Login" />
-                {/* <Route component={CompanyDB} path="/Companydb" /> */}
-                <Route exact component={Main} path="/" />{" "}
+          <Router>
+            <Navbar />
+            <Switch>
+              {/* <Route component={Main} path="/" /> */}
+              <Route component={SignUp} path="/Signup" />
+              <Route component={Login} path="/Login" />
+              {/* <Route component={CompanyDB} path="/Companydb" /> */}
+              <Route exact component={Main} path="/" />{" "}
+              <FireStoreContextProvider>
                 <Route exact component={AfterLogin} path="/AfterLogin" />
                 <Route exact component={AddDrive} path="/AddDrive" />
                 {/* <Route component={StudentDB} path="/Companydb" /> */}
-              </Switch>
-              <Footer />
-            </Router>
-          </FireStoreContextProvider>
+              </FireStoreContextProvider>
+            </Switch>
+            <Footer />
+          </Router>
         </AuthProvider>
       </div>
     </div>

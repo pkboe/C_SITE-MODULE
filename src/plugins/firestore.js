@@ -4,13 +4,14 @@ export const db = firestore;
 export const storeCreatedDrive = async (currentUser, drive) => {
   try {
     if (currentUser && drive) {
-      let x = [];
       let y = [];
       let z = "";
       drive.modules.map((item, index) => {
         console.log(item);
         y = item.value.split("-");
         y.map((item) => (z += item.charAt(0)));
+
+        return true; //warning de hota ha kahi return kel pahje mhnun return true takel hay.
       });
       // modules
       //     python-coding-15
@@ -33,12 +34,27 @@ export const storeCreatedDrive = async (currentUser, drive) => {
         modules: drive.modules,
         testDuration: drive.testDuration,
       });
+
+      db.collection("companies")
+        .doc(currentUser.uid)
+        .collection("drives")
+        .doc()
+        .set({
+          uid: currentUser.uid,
+          driveName: dname,
+          startDate: drive.startDate,
+          endDate: drive.endDate,
+          startTime: drive.startTime,
+          endTime: drive.endTime,
+          allowBy: drive.allowBy,
+          modules: drive.modules,
+          testDuration: drive.testDuration,
+        });
     }
+
+    return true;
   } catch (err) {
     console.error(err);
     return false;
-  }
-  {
-    return true;
   }
 };
