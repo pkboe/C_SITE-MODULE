@@ -81,23 +81,38 @@ const CompanyDB = (props) => {
               <h5 className="pt-2 text-center">Quick Links</h5>
               <hr className="m-0 p-0" />
               <div className="m-4">
-                <a className="text-decoration-none" href="/#">
+                <a
+                  className="text-decoration-none module-tag rounded p-2 m-2 "
+                  href="/#"
+                >
                   Add New Drive
                 </a>
                 <br />
-                <a className="text-decoration-none" href="/#">
+                <a
+                  className="text-decoration-none module-tag rounded p-2 m-2 "
+                  href="/#"
+                >
                   View Previous Drives
                 </a>
                 <br />
-                <a className="text-decoration-none" href="/#">
+                <a
+                  className="text-decoration-none module-tag rounded p-2 m-2 "
+                  href="/#"
+                >
                   View Upcoming Drives
                 </a>
                 <br />
-                <a className="text-decoration-none" href="/#">
+                <a
+                  className="text-decoration-none module-tag rounded p-2 m-2 "
+                  href="/#"
+                >
                   Account Settings
                 </a>
                 <br />
-                <Link className="Nav__link text-decoration-none" to="/">
+                <Link
+                  className="text-decoration-none module-tag rounded p-2 m-2 "
+                  to="/"
+                >
                   Sign out
                 </Link>
               </div>

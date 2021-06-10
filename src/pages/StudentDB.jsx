@@ -19,7 +19,6 @@ const StudentDB = (props) => {
 
   return (
     <div className="drives">
-      {studentPRN}
       <div className="row">
         <div className="col-9">
           <div className="row">

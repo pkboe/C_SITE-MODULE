@@ -130,22 +130,31 @@ export function FireStoreContextProvider({ children }) {
               let tempCurrentDrive = doc.data();
 
               let url =
-                `http://127.0.0.1:5000/api/setfilename?drivename=${tempCurrentDrive.driveName}&email=${currentUser.email}&prn=${studentPRN}`.replace(
+                `http://127.0.0.1:5000/api/validatestudent?drivename=${tempCurrentDrive.driveName}&email=${currentUser.email}&prn=${studentPRN}`.replace(
                   " ",
                   "%20"
                 );
 
-              // let x = await axios.get(
-              //   `http://127.0.0.1:5000/api/setfilename?drivename=${tempCurrentDrive.driveName}&email=${currentUser.email}&prn=${studentPRN}`
-              // );
-
-              if (hasStarted(tempCurrentDrive))
-                tempRunningDrives.push(tempCurrentDrive);
-              //Started Drives
-              else tempScheduledDrives.push(tempCurrentDrive); //ScheduledDrives
+              await axios.get(url).then((x) => {
+                console.log(x.data.show);
+                if (x.data.show) {
+                  if (hasStarted(tempCurrentDrive)) {
+                    tempRunningDrives.push(tempCurrentDrive);
+                    setRunningDrives((RunningDrives) => [
+                      ...RunningDrives,
+                      tempCurrentDrive,
+                    ]);
+                  } else {
+                    tempScheduledDrives.push(tempCurrentDrive);
+                    setScheduledDrives((ScheduledDrives) => [
+                      ...ScheduledDrives,
+                      tempCurrentDrive,
+                    ]);
+                  }
+                }
+              });
             });
             setScheduledDrives(tempScheduledDrives);
-            setRunningDrives(tempRunningDrives);
             setfireLoading(false);
           },
           (err) => {
@@ -170,7 +179,7 @@ export function FireStoreContextProvider({ children }) {
     };
 
     console.log("InSide Fetcher");
-  }, [currentUser, userType]);
+  }, [currentUser, userType, studentPRN]);
 
   // useEffect(() => {
   //   console.log(Drives);
