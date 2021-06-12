@@ -3,11 +3,21 @@ import { useAuth } from "../plugins/AuthContext";
 import CompanyDB from "./CompanyDB";
 import StudentDB from "./StudentDB";
 import { Redirect } from "react-router";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import TestInfo from "./TestInfo";
+// import Test from "../Components/Test";
 
 const AfterLogin = (props) => {
-  const { userType } = useAuth();
+  const { userType, IsTestRunning } = useAuth();
+  const history = useHistory();
   // const [userType, setuserType] = useState("Anoynomous");
   // const [IsClaimSet, setIsClaimSet] = useState(false);
+
+  useEffect(() => {
+    if (IsTestRunning) history.push("/testinfo");
+  }, []);
+
   const Switcher = () => {
     if (userType === "institute") return <CompanyDB />;
     else if (userType === "student") return <StudentDB />;

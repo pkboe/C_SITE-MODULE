@@ -1,8 +1,13 @@
 import { faClock, faClipboard } from "@fortawesome/free-regular-svg-icons";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
+import { Redirect, useHistory } from "react-router";
+import { AuthContext } from "../plugins/AuthContext";
+import swal from "sweetalert";
 
 const TestCardRunning = ({ drive }) => {
+  const history = useHistory();
   function formatDDMMM(s) {
     var months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
     var b = s.split(/\D/);
@@ -20,6 +25,51 @@ const TestCardRunning = ({ drive }) => {
     }
     return time.join(""); // return adjusted time or original string
   }
+  const { settestToBeAttempted } = useContext(AuthContext);
+  var elem = document.documentElement;
+
+  function openFullscreen() {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
+
+  /* Close fullscreen */
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      /* IE11 */
+      document.msExitFullscreen();
+    }
+  }
+
+  const showAlert = () => {
+    swal({
+      title: "Sure to attempt the test ? ",
+      text: "You Need to Ensure ...\n 1)Stable Internet Connection \n 2)Camera Permission Required \n 3) DO NOT Press Refresh. \n All The Best",
+      icon: "warning",
+      buttons: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        openFullscreen();
+        settestToBeAttempted(drive);
+        history.push({
+          pathname: "/TestInfo",
+          drive: drive,
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -68,8 +118,9 @@ const TestCardRunning = ({ drive }) => {
             <button
               className="btn btn-success btn-sm"
               style={{ minWidth: 110 }}
+              onClick={showAlert}
             >
-              Live
+              Attempt
             </button>
           </div>
         </div>

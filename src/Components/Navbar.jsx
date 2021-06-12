@@ -1,12 +1,11 @@
 import user from "./user.png";
-
 import navBrand from "../pages/nav-brand.png";
 import { Link, Redirect } from "react-router-dom";
 import { useAuth } from "../plugins/AuthContext";
 // import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
-  const { currentUser, userType } = useAuth();
+  const { currentUser, userType, IsTestRunning } = useAuth();
   // console.log(values);
 
   // if (values.currentUser) {
@@ -51,6 +50,7 @@ const Navbar = (props) => {
           type="submit"
           onClick={handleSignOut}
           style={{ marginLeft: 10 }}
+          disabled={IsTestRunning}
         >
           Sign out
         </button>
@@ -104,9 +104,11 @@ const Navbar = (props) => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {!props.Auth && (
                 <li className="nav-item">
-                  <Link className="nav-link active" to="/">
-                    Home
-                  </Link>
+                  {!IsTestRunning && (
+                    <Link className="nav-link active" to="/Afterlogin">
+                      Home
+                    </Link>
+                  )}
                 </li>
               )}
 

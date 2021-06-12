@@ -6,12 +6,18 @@ import { useHistory } from "react-router-dom";
 import { useFireStore } from "../plugins/FireStoreContext";
 import DriveCardScheduled from "../Components/DriveCardScheduled";
 import DriveCardRunning from "../Components/DriveCardRunning";
+import { useAuth } from "../plugins/AuthContext";
+import { useEffect } from "react";
 
 // import Navbar from "../Components/Navbar";
+
+
+
 
 const CompanyDB = (props) => {
   const history = useHistory();
   const { RunningDrives, ScheduledDrives } = useFireStore();
+  const { IsTestRunning } = useAuth();
 
   return (
     <>

@@ -8,10 +8,16 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const [TestStatus, setTestStatus] = useState("");
+  const [IsTestRunning, setIsTestRunning] = useState(false);
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState();
   const [studentPRN, setstudentPRN] = useState("");
+  const [testToBeAttempted, settestToBeAttempted] = useState(null);
+  const [isCurrentModuleSolved, setisCurrentModuleSolved] = useState(false);
+  const [ModulesSolved, setModulesSolved] = useState([]);
+  const [IsML5ModelLoaded, setIsML5ModelLoaded] = useState(false);
 
   const signup = async (email, password, fullName, signType, studentPRN) => {
     let promise = new Promise(function (resolve, reject) {
@@ -125,9 +131,20 @@ export function AuthProvider({ children }) {
     signin,
     signout,
     passwordReset,
+    TestStatus,
+    IsTestRunning,
+    setTestStatus,
+    setIsTestRunning,
+    testToBeAttempted,
+    settestToBeAttempted,
+    IsML5ModelLoaded,
+    setIsML5ModelLoaded,
+    setisCurrentModuleSolved,
+    isCurrentModuleSolved,
+    ModulesSolved,
+    setModulesSolved,
   };
 
-  <auth className="currentUser"></auth>;
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

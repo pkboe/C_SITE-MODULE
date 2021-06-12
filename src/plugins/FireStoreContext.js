@@ -50,7 +50,6 @@ const hasStarted = (drive) => {
     parseInt(startYear) <= parseInt(todayYear) &&
     parseInt(startMonth) <= parseInt(todayMonth) &&
     parseInt(startDay) <= parseInt(todayDay);
-
   return hasStarted;
 };
 

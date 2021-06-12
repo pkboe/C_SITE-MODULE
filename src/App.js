@@ -13,6 +13,8 @@ import Main from "./pages/Main";
 // import CompanyDB from "./pages/CompanyDB";
 // import StudentDB from "./pages/StudentDB";
 import { FireStoreContextProvider } from "./plugins/FireStoreContext";
+import { ChatProvider } from "./plugins/ChatContext";
+import TestInfo from "./pages/TestInfo";
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
                 <Route exact component={AfterLogin} path="/AfterLogin" />
                 <Route exact component={AddDrive} path="/AddDrive" />
                 {/* <Route component={StudentDB} path="/Companydb" /> */}
+                <Route exact component={TestInfo} path="/TestInfo" />
               </FireStoreContextProvider>
             </Switch>
             <Footer />
