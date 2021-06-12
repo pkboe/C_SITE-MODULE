@@ -11,9 +11,6 @@ import { useEffect } from "react";
 
 // import Navbar from "../Components/Navbar";
 
-
-
-
 const CompanyDB = (props) => {
   const history = useHistory();
   const { RunningDrives, ScheduledDrives } = useFireStore();
@@ -81,6 +78,9 @@ const CompanyDB = (props) => {
             {ScheduledDrives.map((drive, index) => (
               <DriveCardScheduled key={index} drive={drive} />
             ))}
+            {/* <div className=" d-flex flex-row-reverse p-2 mb-5">
+              {" "}
+            </div> */}
           </div>
           <div className="col-3">
             <div className="card quick-links rounded m-1 p-2">

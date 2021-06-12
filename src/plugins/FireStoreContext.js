@@ -139,21 +139,24 @@ export function FireStoreContextProvider({ children }) {
                 if (x.data.show) {
                   if (hasStarted(tempCurrentDrive)) {
                     tempRunningDrives.push(tempCurrentDrive);
-                    setRunningDrives((RunningDrives) => [
-                      ...RunningDrives,
-                      tempCurrentDrive,
-                    ]);
+                    // setRunningDrives((RunningDrives) => [
+                    //   ...RunningDrives,
+                    //   tempCurrentDrive,
+                    // ]);
+                    setRunningDrives([...tempRunningDrives]);
                   } else {
                     tempScheduledDrives.push(tempCurrentDrive);
-                    setScheduledDrives((ScheduledDrives) => [
-                      ...ScheduledDrives,
-                      tempCurrentDrive,
-                    ]);
+                    // setScheduledDrives((ScheduledDrives) => [
+                    //   ...ScheduledDrives,
+                    //   tempCurrentDrive,
+                    // ]);
+                    console.log(tempScheduledDrives);
+                    setScheduledDrives([...tempScheduledDrives]);
                   }
                 }
               });
             });
-            setScheduledDrives(tempScheduledDrives);
+            // setScheduledDrives(tempScheduledDrives);
             setfireLoading(false);
           },
           (err) => {

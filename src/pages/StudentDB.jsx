@@ -65,7 +65,9 @@ const StudentDB = (props) => {
             </p>
           )}{" "}
           {ScheduledDrives.map((drive, index) => (
-            <TestCardUpcoming key={index} drive={drive} />
+            <>
+              <TestCardUpcoming key={index} drive={drive} />
+            </>
           ))}
         </div>
         <div className="col-3">

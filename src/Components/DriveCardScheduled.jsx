@@ -71,6 +71,7 @@ const DriveCardScheduled = ({ drive }) => {
             >
               Scheduled
             </button>
+            <button className="btn btn-secondary btn-sm">Send Emails</button>
           </div>
         </div>
       </div>

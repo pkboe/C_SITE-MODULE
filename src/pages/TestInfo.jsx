@@ -9,6 +9,7 @@ import Pose from "../Components/Pose";
 import Timer from "react-compound-timer";
 import { Redirect } from "react-router-dom";
 import Chat from "../Components/Chat";
+import Coding from "../Components/Coding";
 import axios from "axios";
 
 const TestInfo = (props) => {
@@ -76,13 +77,15 @@ const TestInfo = (props) => {
     // console.log(module);
     if (module.value.split("-")[1].toLowerCase() == "mcq") {
       return (
-        <Chat
-          currentModule={currentModule}
-          setParentCounter={setParentCounter}
-        />
+        <Chat currentModule={module} setParentCounter={setParentCounter} />
       );
     } else if (module.value.split("-")[1].toLowerCase() == "coding")
-      return <h1>{module.value.split("-")[0] + " "}Coding Module</h1>;
+      return (
+        <>
+          <h1>{module.value.split("-")[0] + " "}Coding Module</h1>;
+          <Coding currentModule={module} />
+        </>
+      );
   };
 
   useEffect(() => {
@@ -168,7 +171,7 @@ const TestInfo = (props) => {
             <h4 style={{ fontWeight: 600 }}>
               Time Left <br />
               <Timer
-                initialTime={8000}
+                initialTime={200000}
                 lastUnit="m"
                 direction="backward"
                 startImmediately={true}
@@ -205,7 +208,7 @@ const TestInfo = (props) => {
                 <button
                   className={
                     index == ModulesSolved.length - 1
-                      ? "btn btn-secondary p-2 m-2"
+                      ? "btn btn-success p-2 m-2"
                       : "btn btn-outline-secondary p-2 m-2"
                   }
                   key={index}
@@ -216,7 +219,9 @@ const TestInfo = (props) => {
             {/* {JSON.stringify(drive)} */}
           </div>
           <div className="col card ">
-            {currentModule && <ModuleTypeSwitcher module={currentModule} />}
+            {!IsTimeUp && IsTestRunning && testToBeAttempted && (
+              <ModuleTypeSwitcher module={currentModule} />
+            )}
           </div>
         </div>
       </div>

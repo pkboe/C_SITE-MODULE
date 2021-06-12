@@ -665,4 +665,9 @@ body {
   border-color: var(--blue) !important;
 }
 
+.ace_editor,
+.ace_editor * {
+  font-family: monospace;
+}
+
 @import "~bootstrap/scss/bootstrap";
